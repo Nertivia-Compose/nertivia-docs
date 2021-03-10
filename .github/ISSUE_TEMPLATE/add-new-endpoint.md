@@ -19,12 +19,12 @@ assignees: ''
 **Endpoint parameters**:
 | Parameter | Required | Type | Example | Description |
 | - | - | - | - | - |
-| Name  | Yes or No | string or number | Example | Some description |
+| Name | Yes or No | string or number | Example | Some description |
 
 **Endpoint headers**:
 | Header | Example |
 | - | - |
-| Name  | Example |
+| Name | Example |
 
 **Endpoint body**:
 ```{body}```
