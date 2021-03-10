@@ -16,21 +16,18 @@ assignees: ''
 
 **Endpoint title**: [TITLE]
 
-**Endpoint code**:
-```
-### TITLE [ACTION PATCH]
+**Endpoint parameters**:
+| Parameter | Required | Type | Example | Description |
+| - | - | - | - | - |
+| Name  | Yes or No | string or number | Example | Some description |
 
-+ Request (application/json)
+**Endpoint headers**:
+| Header | Example |
+| - | - |
+| Name  | Example |
 
-    + Headers
-    
-            headers
-            
-    + Body
-    
-            body
-            
-+ Response 200
+**Endpoint body**:
+```{body}```
 
-        response
-```
+**Endpoint response**:
+```{"message": "response"}```
