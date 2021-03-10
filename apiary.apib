@@ -1,0 +1,723 @@
+FORMAT: 1A
+HOST: https://nertivia.net/api
+
+# Nertivia
+
+Nertivia API documentiaion
+
+## Authorization
+You'll need your account token to execute some actions. Here are steps to get it:
+
+- Press `ctrl + shift + j` on keyboard
+- Type `localStorage["hauthid"]` in the `Cosole` window
+
+## Messages [/messages/channels/{channelID}]
+
++ Parameters
+    + channelID (required, string, `123456789`) ... ID of a channel
+    
+### Get last 50 messages [GET]
+    
++ Request (application/json)
+
+    + Headers
+
+            Authorization: token
+    
++ Response 200
+
+        {
+            "channelID": string,
+            "messages": [{
+                "channelID": string,
+                "created": number,
+                "creator": {
+                    "username": string,
+                    "uniqueID": string,
+                    "tag": string
+                    },
+                "files": [],
+                "mentions": [],
+                "message": string,
+                "messageID": string,
+                "type": number
+            }],
+            "status": bool
+        }
+        
+        
++ Response 401
+
+        {"message":"Invalid Token."}
+        
++ Response 404
+
+        {"message":"Channel doesn't exist."}
+        
+### Send a message [POST]
+
++ Request (application/json)
+
+    + Headers
+
+            Authorization: token
+        
+    + Body
+
+            {"message": "content"}
+        
++ Response 200
+
+        {
+            "status": bool,
+            "messageCreated": {
+            "channelID": string,
+            "message": message,
+                "creator": {
+                "uniqueID": string,
+                "username": string,
+                "tag": string,
+                "avatar": string
+                "admin": number
+            },
+            "created": timestamp,
+            "mentions": [],
+            "quotes": [],
+            "messageID": string
+            }
+        }
+        
++ Response 401
+
+        {"message": "Invaild Token."}
+        
++ Response 403
+
+        {"message": "Cant send empty message."}
+        
++ Response 404
+
+        {"message": "Channel doesn't exist."}
+        
+### Delete a message [DELETE /messages/{messageID}/channels/{channelID}]
+
++ Parameters
+    + messageID (required, string, `123456789`) ... ID of a message
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {"channelID": "string", "messageID": "string"}
+        
++ Response 401
+
+        {"message":"Invalid Token."}
+        
++ Response 404
+
+        {"message":"Message was not found."}
+        
++ Response 404
+
+        {"message":"Channel doesn't exist."}
+        
+## Channels [/servers/{guildID}/channels]
+
++ Parameters
+    + guildID (required, string, `123456789`) ... ID of a guild
+    
+### Create [PUT]
+
++ Request (application/json)
+
+    + Headers
+    
+                Authorization: token
+                
+    + Body
+    
+            {
+                "name": string
+            }
+            
++ Response 200
+
+        {
+        "channel": {
+            "channelID": string,
+            "lastMessaged": timestamp,
+            "name": string,
+            "server_id": string,
+            "status": number,
+            "recipients": []
+            }
+        }
+        
++ Response 401
+
+        {"message": "Invalid Token."}
+        
++ Response 404
+
+        {"message": "Server doesn't exist!"}
+        
+### Edit [PATCH /servers/{guildID}/channels/{channelID}]
+        
++ Parameters
+    + channelID (required, string, `123456789`) ... ID of a channel
+            
++ Request (application/json)
+        
+    + Headers
+    
+                Authorization: token
+    + Body
+
+            {
+                "name": string,
+                "permissions": {
+                    "send_message": bool
+                    },
+            }
+            
++ Response 200
+
+        {
+            "name": string,
+            "permissions": {
+                "send_message": bool
+                },
+            "channelID": channelID
+        }
+        
++ Response 401
+
+        {"message": "Invalid Token."}
+        
++ Response 404
+
+        {"message": "Server doesn't exist!"}
+        
++ Response 404
+
+        {"message": "ChannelID is invalid or does not exist in the server."}
+        
+### Delete [DELETE /servers/{guildID}/channels/{channelID}]
+        
++ Parameters
+    + channelID (required, string, `123456789`) ... ID of a channel
+            
++ Request (application/json)
+        
+    + Headers
+    
+                Authorization: token
+            
++ Response 200
+
+        {
+        "channel": {
+            "channelID": string,
+            "lastMessaged": timestamp,
+            "name": string,
+            "server_id": string,
+            "status": number,
+            "recipients": []
+            }
+        }
+        
++ Response 401
+
+        {"message": "Invalid Token."}
+        
++ Response 403
+
+        {"message": "Cannot delete default channel."}
+        
++ Response 404
+
+        {"message": "Server doesn't exist!"}
+        
++ Response 404
+
+        {"message": "ChannelID is invalid or does not exist in the server."}
+        
+## Roles [/servers/{guildID}/roles]
+
++ Parameters
+    + guildID (required, string, `123456789`) ... ID of a guild
+    
+### Create [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+                Authorization: token
+                
+    + Body
+    
+            {"name": "New Role"}
+            
++ Response 200
+
+        {role_array}
+        
++ Response 401
+
+        {"message": "Invalid Token."}
+        
++ Response 404
+
+        {"message": "Server doesn't exist!"}
+        
+### Add to member [PATCH /servers/{guildID}/members/{memberID}/roles/{roleID}]
+
++ Parameters
+    + memberID (required, string, `123456789`) ... member ID to assign role
+    + roleID (required, string, `123456789`) ... role ID to assign
+    
++ Request (application/json)
+        
+    + Headers
+    
+                Authorization: token
+            
++ Response 200
+
+        {"success": true}
+        
+### Remove form member [DELETE /servers/{guildID}/members/{memberID}/roles/{roleID}]
+
++ Parameters
+    + memberID (required, string, `123456789`) ... member ID to remove role
+    + roleID (required, string, `123456789`) ... role ID to revome
+    
++ Request (application/json)
+        
+    + Headers
+    
+                Authorization: token
+            
++ Response 200
+
+        {"success": true}
+        
+### Edit [PATCH /servers/{guildID}/roles/{roleID}]
+
++ Parameters
+    + roleID (required, string, `123456789`) ... role ID to edit
+        
++ Request (application/json)
+        
+    + Headers
+    
+                Authorization: token
+                
+    + Body
+    
+            {
+                "name": "New Name",
+                "permissions": 2,
+                "color": "#ffffff"
+            }
+            
++ Response 200
+
+        {role_array}
+        
++ Response 401
+
+        {"message": "Invalid Token."}
+        
++ Response 404
+
+        {"message": "Server doesn't exist!"}
+        
+### Delete [DELETE /servers/{guildID}/roles/{roleID}]
+
++ Parameters
+    + roleID (required, string, `123456789`) ... role ID to delete
+        
++ Request (application/json)
+        
+    + Headers
+    
+                Authorization: token
+            
++ Response 200
+
+        {role_array}
+        
++ Response 401
+
+        {"message": "Invalid Token."}
+        
++ Response 404
+
+        {"message": "Server doesn't exist!"}
+        
+## Servers [/servers]
+
+### Create [POST]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+        
+    + Body
+    
+            {"name": "Example"}
+        
++ Response 200
+
+        {
+            "avatar": null,
+            "channel_position": [],
+            "FCM_devices": [],
+            "name": string,
+            "creator": {
+                "uniqueID": creatorID
+            },
+            "default_channel_id": defaultChannelID,
+            "server_id": guildID,
+            "user_bans": [],
+            "created": timestamp
+        }
+        
++ Response 401
+
+        {"message": "Invalid Token."}
+        
+### Get info [GET /servers/invite/{code}]
+
++ Parameters
+    + code (required, string, `nertivia`) ... Guild invite code
+    
++ Request (application/json)
+            
++ Response 200
+
+            {
+            "_id":"string",
+            "avatar":"string",
+            "channel_position":[],
+            "name":"string",
+            "creator":"string",
+            "default_channel_id":"string",
+            "server_id":"string",
+            "created":timestamp,
+            "__v":number,
+            "banner":"string",
+            "verified":bool,
+            "public":bool
+        }
+        
+### Edit [PATCH /servers/{guildID}]
+
++ Parameters
+    + guildID (required, string, `123456789`) ... Guild ID to edit
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+        
+    + Body
+    
+            {"name": "Example"}
+        
++ Response 200
+
+        {
+            "name": string,
+            "server_id": guildID
+        }
+        
++ Response 401
+
+        {"message": "Invalid Token."}
+        
+### Join [POST /servers/invite/{code}]
+
++ Parameters
+    + code (required, string, `nertivia`) ... Guild invite code
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {
+        "_id":"string",
+        "avatar":"string",
+        "channel_position":[],
+        "name":"string",
+        "creator":"string",
+        "default_channel_id":"string",
+        "server_id":"string",
+        "created":timestamp,
+        "__v":number,
+        "banner":"string",
+        "verified":bool,
+        "public":bool
+        }
+        
+### Leave [DELETE /servers/{guildID}]
+
++ Parameters
+    + guildID (required, string, `123456789`) ... Guild ID to leave
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {"status": "Done!"}
+        
++ Response 401
+
+        {"message": "Invalid Token."}
+        
++ Response 403
+
+        {"message": "You may delete your swerver trough the server settings page."}
+        
+### Delete [POST /servers/{guildID}/delete]
+
++ Parameters
+    + guildID (required, string, `123456789`) ... Guild ID to delete
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {"status": "Done!"}
+        
++ Response 401
+
+        {"message": "Invalid Token."}
+        
++ Response 403
+
+        {"message": "Only the creator of the servers can delete servers."}
+        
+### Kick member [DELETE /servers/{guildID}/members/{memberID}]
+
++ Parameters
+    + guildID (required, string, `123456789`) ... Guild ID to delete
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {"status": "Done!"}
+        
+### Get ban list [GET /servers/{guildID}/bans]
+
++ Parameters
+    + guildID (required, string, `123456789`) ... Guild ID to delete
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+            []
+        
+### Ban member [PUT /servers/{guildID}/bans/{memberID}]
+
++ Parameters
+    + guildID (required, string, `123456789`) ... Guild ID to delete
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {"status": "Done!"}
+        
+### Unban member [DELETE /servers/{guildID}/bans/{memberID}]
+
++ Parameters
+    + guildID (required, string, `123456789`) ... Guild ID to delete
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {"status": "Done!"}
+        
+## User [/user]
+
+### Get info [GET /user/{userID}]
+
++ Parameters
+    + userID (required, string, `123456789`) ... User ID to get info
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {
+        "user": {
+        "_id": "string",
+        "avatar": "string",
+        "admin": number,
+        "badges": [],
+        "username": "string",
+        "uniqueID": "string",
+        "tag": "string",
+        "created": timestamp,
+        "about_me": {
+              "_id": "string",
+              "gender": "string",
+              "age": "strng",
+              "continent": "string",
+              "country": "string",
+              "about_me": "string"
+              },
+        },
+        "commonServersArr": [],
+        "commonFriendsArr": [],
+        "isBlocked": bool
+        }
+        
+### Edit survey [PUT /user/survey]
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
+    + Body
+    
+            {
+            "about_me": "string",
+            "age": "string",
+            "continent": "string",
+            "country": "string",
+            "gender": "string",
+            "name": "string"
+            }
+            
++ Response 200
+
+        {"message": "Saved!"}
+        
+### Send a friend request [POST /user/relationship]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
+    + Body
+    
+            {"username": "string", "tag": "string"}
+            
++ Response 200
+
+        {"status": true, "message": "Request sent to <user>"}
+        
+### Accept friend request [PUT /user/relationship]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
+    + Body
+    
+            {"uniqueID": "string"}
+            
++ Response 200
+
+        {"status": true, "message": "Request accepted"}
+        
+### Decline/Cancel friend request [DELETE /user/relationship]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
+    + Body
+    
+            {"uniqueID": "string"}
+            
++ Response 200
+
+        {"status": true, "message": "Request deleted"}
+        
+### Block user [POST /user/block]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
+    + Body
+    
+            {"uniqueID": "string"}
+            
++ Response 200
+
+        {"message": "User blocked"}
+        
+### Unblock user [DELETE /user/block]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
+    + Body
+    
+            {"uniqueID": "string"}
+            
++ Response 200
+
+        {"message": "User unblocked"}
