@@ -724,3 +724,97 @@ You'll need your account token to execute some actions. Here are steps to get it
 + Response 200
 
         {"message": "User unblocked"}
+        
+### Get bot list [GET /bots]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {
+        "lastSeen":number,
+        "avatar":null,
+        "status":number,
+        "admin":number,
+        "friends":[],
+        "servers":[],
+        "survey_completed":bool,
+        "badges":[],
+        "readTerms":bool,
+        "botCommands":[],
+        "_id":"string",
+        "username":"<user>'s Bot",
+        "bot":bool,
+        "createdBy":"string",
+        "ip":"string",
+        "uniqueID":"string",
+        "tag":"string",
+        "created":timestamp,
+        "__v":number
+        }
+        
+### Create a bot [POST /bots]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {
+        "lastSeen":number,
+        "avatar":null,
+        "status":number,
+        "admin":number,
+        "friends":[],
+        "servers":[],
+        "survey_completed":bool,
+        "badges":[],
+        "readTerms":bool,
+        "botCommands":[],
+        "_id":"string",
+        "username":"<user>'s Bot",
+        "bot":bool,
+        "createdBy":"string",
+        "ip":"string",
+        "uniqueID":"string",
+        "tag":"string",
+        "created":timestamp,
+        "__v":number
+        }
+        
+### Get bot info [GET /bots/{botID}]
+
++ Parameters
+    + botID (required, string, `123456789`) ... Bot ID to get
+            
++ Response 200
+
+        {
+        "avatar":"string",
+        "botCommands":[],
+        "username":"string",
+        "createdBy": {
+            "avatar":"string",
+            "username":"string",
+            "uniqueID":"string",
+            "tag":"string"
+            },
+        "uniqueID":"string",
+        "tag":"string"
+        }
+        
+### Delete a bot [DELETE /bots/{botID}]
+
++ Parameters
+    + botID (required, string, `123456789`) ... Bot ID to delete
+            
++ Response 200
+
+        {"message":"success"}
