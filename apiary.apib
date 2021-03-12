@@ -818,3 +818,29 @@ You'll need your account token to execute some actions. Here are steps to get it
 + Response 200
 
         {"message":"success"}
+        
+### Create an account [POST /user/register]
+
++ Request (application/json)
+
+        {
+        "email": "string",
+        "password": "string",
+        "username": "string"
+        }
+            
++ Response 200
+
+        {"message":"confirm email"}
+        
+### Delete account [DELETE /user/delete-account]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {"message":"success"}
