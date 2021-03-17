@@ -399,7 +399,35 @@ You'll need your account token to execute some actions. Here are steps to get it
 
         {"message": "Invalid Token."}
         
-### Get info [GET /servers/invite/{code}]
+### Get info by server ID [GET /servers/{guildID}]
+
++ Parameters
+    + guildID (required, string, `123456789`) ... Guild ID
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+            {
+            "_id":"string",
+            "avatar":"string",
+            "channel_position":[],
+            "name":"string",
+            "creator":"string",
+            "default_channel_id":"string",
+            "server_id":"string",
+            "created":timestamp,
+            "__v":number,
+            "banner":"string",
+            "verified":bool,
+            "public":bool
+        }
+        
+### Get info by invite code [GET /servers/invite/{code}]
 
 + Parameters
     + code (required, string, `nertivia`) ... Guild invite code
