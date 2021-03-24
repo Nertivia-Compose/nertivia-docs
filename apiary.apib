@@ -674,6 +674,21 @@ You'll need your account token to execute some actions. Here are steps to get it
 
         {"message": "Saved!"}
         
+### Set a custom status [POST /settings/custom-status]
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
+    + Body
+    
+            {"custom_status": "string"}
+            
++ Response 200
+
+        {"custom_status": "string"}
 ### Send a friend request [POST /user/relationship]
 
 + Request (application/json)
