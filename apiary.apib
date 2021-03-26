@@ -885,10 +885,19 @@ You'll need your account token to execute some actions. Here are steps to get it
     
             Authorization: token
             
+
 + Response 200
 
         {"message":"success"}
         
+### Login [POST /user/login]
+
++ Request (application/json)
+
+        {"email": "string", "password": "string"}
+            
++ Response 204
+
 ### Logout [DELETE /user/logout]
 
 + Request (application/json)
