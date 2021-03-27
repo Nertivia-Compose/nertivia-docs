@@ -896,7 +896,19 @@ You'll need your account token to execute some actions. Here are steps to get it
 
         {"email": "string", "password": "string"}
             
-+ Response 204
++ Response 200
+
+        {
+        "message": "You were logged in.",
+        "action": "logged_in",
+        "user": {
+            "username": "string",
+            "tag": "string",
+            "uniqueID": "string",
+            "avatar": "string"
+        },
+        "token": "string"
+        }
 
 ### Logout [DELETE /user/logout]
 
