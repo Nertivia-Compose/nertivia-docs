@@ -102,6 +102,54 @@ You'll need your account token to execute some actions. Here are steps to get it
 + Response 404
 
         {"message": "Channel doesn't exist."}
+
+
+### Edit a message [PATCH /messages/{messageID}/channels/{channelID}]
+
++ Parameters
+    + messageID (required, string, `123456789`) ... ID of a message
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+        
+    + Body
+
+            {"message": "content"}
+        
++ Response 200
+
+        {
+        "channelID": "string",
+        "message": "string",
+        "creator": {
+            "id": "string",
+            "username": "string",
+            "tag": "string",
+            "avatar": "string",
+            "badges": int
+        },
+        "created": int,
+        "mentions": [],
+        "quotes": [],
+        "messageID": "string",
+        "timeEdited": int,
+        "files": []
+        }
+        
++ Response 401
+
+        {"message": "Invaild Token."}
+        
++ Response 403
+
+        {"message": "Cant send empty message."}
+        
++ Response 404
+
+        {"message": "Channel doesn't exist."}
         
 ### Delete a message [DELETE /messages/{messageID}/channels/{channelID}]
 
