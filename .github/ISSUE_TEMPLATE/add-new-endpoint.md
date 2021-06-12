@@ -1,33 +1,30 @@
 ---
-name: Add new endpoint
-about: Add new/missing enpoint
+name: '[METHOD] /enpoint'
+about: Add a new or missing enpoint
 title: ''
 labels: ''
 assignees: ''
 
 ---
 
-**Endpoint category**:
-- [ ] MESSAGES
-- [ ] CHANNELS
-- [ ] ROLES
-- [ ] SERVERS
-- [ ] USER
+<!-- Make sure to include:
+1. Endpoint along with method (e.g. [POST] /servers | [GET] /user/:param) (in title)
+2. Headers (e.g. Authorization: token)
+3. Parameters along with description (e.g. userID (required, string, `123456789`) ... User ID))
 
-**Endpoint title**: [TITLE]
+if something is not appropriate type **N/A** -->
+  
+**Parameters**: Name (required, type: String | Number, `example`) ... description
 
-**Endpoint parameters**:
-| Parameter | Required | Type | Example | Description |
-| - | - | - | - | - |
-| Name | Yes or No | string or number | Example | Some description |
+**Headers**: Header: default_value
 
-**Endpoint headers**:
-| Header | Example |
-| - | - |
-| Name | Example |
+**Body**:
 
-**Endpoint body**:
-```{body}```
+            { json_body }
 
-**Endpoint response**:
-```{"message": "response"}```
+**Response**:
+
+
+            { json_response }
+
+- [ ] I checked that no one has requested this enpoint before
