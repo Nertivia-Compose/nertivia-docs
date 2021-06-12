@@ -183,6 +183,25 @@ You'll need your account token to execute some actions. Here are steps to get it
 + Parameters
     + guildID (required, string, `123456789`) ... ID of a guild
     
+## Get [GET /channels/{channelID}]
+
++ Parameters
+    + channelID (required, string, `123456789`) ... ID of a channel
+
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+            
++ Response 200
+
+        {
+        "name":"String",
+        "channelID":"String",
+        "server_id":"String"
+        }
+        
 ### Create [PUT]
 
 + Request (application/json)
