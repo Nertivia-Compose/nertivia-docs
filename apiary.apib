@@ -1,4 +1,4 @@
-FORMAT: 1A
+[aFORMAT: 1A
 HOST: https://nertivia.net/api
 
 # Nertivia
@@ -20,7 +20,7 @@ You'll need your account token to execute some actions. Here are steps to get it
 + Parameters
     + channelID (required, string, `123456789`) ... ID of a channel
     
-### Get last 50 messages [GET]
+### Get last 50 [GET]
     
 + Request (application/json)
 
@@ -58,7 +58,7 @@ You'll need your account token to execute some actions. Here are steps to get it
 
         {"message":"Channel doesn't exist."}
         
-### Send a message [POST]
+### Send [POST]
 
 + Request (application/json)
 
@@ -104,7 +104,7 @@ You'll need your account token to execute some actions. Here are steps to get it
         {"message": "Channel doesn't exist."}
 
 
-### Edit a message [PATCH /messages/{messageID}/channels/{channelID}]
+### Edit [PATCH /messages/{messageID}/channels/{channelID}]
 
 + Parameters
     + messageID (required, string, `123456789`) ... ID of a message
@@ -151,7 +151,7 @@ You'll need your account token to execute some actions. Here are steps to get it
 
         {"message": "Channel doesn't exist."}
         
-### Delete a message [DELETE /messages/{messageID}/channels/{channelID}]
+### Delete [DELETE /messages/{messageID}/channels/{channelID}]
 
 + Parameters
     + messageID (required, string, `123456789`) ... ID of a message
@@ -177,6 +177,64 @@ You'll need your account token to execute some actions. Here are steps to get it
 + Response 404
 
         {"message":"Channel doesn't exist."}
+        
+### Add a reaction [POST /messages/{messageID}/channels/{channelID}/reactions]
+
++ Parameters
+    + messageID (required, string, `123456789`) ... ID of a message
+    + channelID (required, string, `123456789`) ... ID of a channel
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+
+    + Body
+
+            {"gif": false, "unicode": "👌"}
+
++ Response 200
+
+        {
+        "channelID": "string",
+        "messageID": "string",
+        "reactedByUserID": "string",
+        "reaction": {
+            "unicode": "string",
+            "gif": boolean,
+            "count": integer
+            }
+        }
+        
+### Remove a reaction [DELETE /messages/{messageID}/channels/{channelID}/reactions]
+
++ Parameters
+    + messageID (required, string, `123456789`) ... ID of a message
+    + channelID (required, string, `123456789`) ... ID of a channel
+    
++ Request (application/json)
+
+    + Headers
+    
+            Authorization: token
+
+    + Body
+
+            {"unicode": "👌"}
+
++ Response 200
+
+        {
+        "channelID": "string",
+        "messageID": "string",
+        "unReactedByUserID": "string",
+        "reaction": {
+            "unicode": "string",
+            "gif": boolean,
+            "count": integer
+            }
+        }
         
 ## Channels [/servers/{guildID}/channels]
 
